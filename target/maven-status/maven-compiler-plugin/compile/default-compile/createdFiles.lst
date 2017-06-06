@@ -1,0 +1,7 @@
+gold\student\questionnaire\Question.class
+gold\student\questionnaire\enums\QuestionType.class
+gold\student\questionnaire\Questionnaire.class
+gold\student\main\dao\QuestionnaireDAO.class
+gold\student\main\dao\QuestionDAO.class
+gold\student\main\App.class
+gold\student\questionnaire\Answer.class

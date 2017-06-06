@@ -1,12 +1,12 @@
 package gold.student.main.dao;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import gold.student.questionnaire.Question;
 
 public interface QuestionDAO {
-
-	List<Question> getQuestions();
 
 	Question getQuestionByID();
 
@@ -15,4 +15,6 @@ public interface QuestionDAO {
 	void updateQuestion(Question question);
 
 	void deleteQuestion(Question question);
+
+	List<Question> getQuestions(Connection connection) throws SQLException;
 }
