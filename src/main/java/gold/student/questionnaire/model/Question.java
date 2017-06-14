@@ -15,8 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import gold.student.questionnaire.enums.QuestionType;
-
 @Entity
 @Table(name = "Question")
 /*

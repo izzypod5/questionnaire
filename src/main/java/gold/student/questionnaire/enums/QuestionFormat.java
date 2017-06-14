@@ -1,6 +1,6 @@
 package gold.student.questionnaire.enums;
 
-public enum QuestionType {
+public enum QuestionFormat {
 
 	FREE_TEXT("Free Text", "FT"),
 	TEXT("Text", "T"),
@@ -9,11 +9,11 @@ public enum QuestionType {
 	SELECT("Select", "S"),
 	RADIO("Radio", "R");
 
-	public static final QuestionType[] VALUES = values();
+	public static final QuestionFormat[] VALUES = values();
 	private final String name;
 	private final String abbr;
 
-	private QuestionType(String name, String abbr) {
+	private QuestionFormat(String name, String abbr) {
 		this.name = name;
 		this.abbr = abbr;
 	}
@@ -26,8 +26,8 @@ public enum QuestionType {
 		return abbr;
 	}
 
-	public static QuestionType forId(String abbr) {
-		for (QuestionType type : VALUES) {
+	public static QuestionFormat forId(String abbr) {
+		for (QuestionFormat type : VALUES) {
 			if (type.abbr.equals(abbr)) {
 				return type;
 			}
