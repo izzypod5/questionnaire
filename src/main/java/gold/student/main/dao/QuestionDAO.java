@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import gold.student.questionnaire.Question;
+import gold.student.questionnaire.model.Question;
 
 public interface QuestionDAO {
 
@@ -16,5 +16,5 @@ public interface QuestionDAO {
 
 	void deleteQuestion(Question question);
 
-	List<Question> getQuestions(Connection connection) throws SQLException;
+	List<Question> getQuestions() throws Exception;
 }

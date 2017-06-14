@@ -1,22 +1,18 @@
 package gold.student.main.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import gold.student.questionnaire.Question;
-import gold.student.questionnaire.enums.QuestionType;
+import gold.student.questionnaire.model.Question;
 
 public class QuestionDAOImpl implements QuestionDAO {
 
 	@Override
-	public List<Question> getQuestions(Connection connection) throws SQLException {
+	public List<Question> getQuestions() throws Exception {
 		List<Question> questions = new ArrayList<Question>();
-		String selectQuestionsQuery = "SELECT question_id,description,type FROM questions";
-		try (PreparedStatement ps = connection.prepareStatement(selectQuestionsQuery);
+/*		String selectQuestionsQuery = "SELECT question_id,description,type FROM questions";
+		try (Connection connection = App.getConnection();
+				PreparedStatement ps = connection.prepareStatement(selectQuestionsQuery);
 				ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
 				Question question = new Question();
@@ -25,7 +21,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 				question.setType(QuestionType.forId(rs.getString("type")));
 				questions.add(question);
 			}
-		}
+		}*/
 		return questions;
 	}
 

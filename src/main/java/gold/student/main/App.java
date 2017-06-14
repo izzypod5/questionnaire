@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import gold.student.main.dao.QuestionDAOImpl;
-import gold.student.questionnaire.Question;
+import gold.student.questionnaire.model.Question;
 
 /**
  * Hello world!
@@ -21,9 +21,6 @@ import gold.student.questionnaire.Question;
 public class App {
 	private static final Logger logger = LogManager.getLogger(App.class.getName());
 	private static Connection connection = null;
-	private Statement statement = null;
-	private PreparedStatement preparedStatement = null;
-	private ResultSet resultSet = null;
 
 	//params added to sort a mysql timezone issue
 	final private static String url = "jdbc:mysql://localhost:3306/questionnaire?useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -43,10 +40,9 @@ public class App {
 		}
 		QuestionDAOImpl test = new QuestionDAOImpl();
 		try {
-			List<Question> questions = test.getQuestions(connection);
-			System.out.println(questions);
+			List<Question> questions = test.getQuestions();
 			logger.debug(questions);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 	}

@@ -2,7 +2,7 @@ package gold.student.main.dao;
 
 import java.util.List;
 
-import gold.student.questionnaire.Questionnaire;
+import gold.student.questionnaire.model.Questionnaire;
 
 public interface QuestionnaireDAO {
 
