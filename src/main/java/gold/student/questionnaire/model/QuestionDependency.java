@@ -1,25 +1,38 @@
 package gold.student.questionnaire.model;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "QuestionDependency")
 public class QuestionDependency {
-	//@PrimaryKeyJoinColumn used to create a composite primary key from foreign keys
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "qqId", cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn(name="qqId")
+
+	@EmbeddedId
+	private QuestionDependencyId id;
+
+	@MapsId("questionId")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "qq_id")
 	private QuestionnaireQuestion question;
-	@Column(name = "answer")
-	private String answer;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "qqId", cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn(name="qqId")
+
+	@MapsId("nextQuestionId")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "next_qq_id")
 	private QuestionnaireQuestion nextQuestion;
+
+	public QuestionDependencyId getId() {
+		return id;
+	}
+
+	public void setId(QuestionDependencyId id) {
+		this.id = id;
+	}
 
 	public QuestionnaireQuestion getQuestion() {
 		return question;
@@ -27,14 +40,6 @@ public class QuestionDependency {
 
 	public void setQuestion(QuestionnaireQuestion question) {
 		this.question = question;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
 	}
 
 	public QuestionnaireQuestion getNextQuestion() {
@@ -49,7 +54,7 @@ public class QuestionDependency {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nextQuestion == null) ? 0 : nextQuestion.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		return result;
@@ -64,10 +69,10 @@ public class QuestionDependency {
 		if (getClass() != obj.getClass())
 			return false;
 		QuestionDependency other = (QuestionDependency) obj;
-		if (answer == null) {
-			if (other.answer != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!answer.equals(other.answer))
+		} else if (!id.equals(other.id))
 			return false;
 		if (nextQuestion == null) {
 			if (other.nextQuestion != null)
@@ -84,8 +89,7 @@ public class QuestionDependency {
 
 	@Override
 	public String toString() {
-		return "QuestionDependency [question=" + question + ", answer=" + answer + ", nextQuestion=" + nextQuestion
-				+ "]";
+		return "QuestionDependency [id=" + id + ", question=" + question + ", nextQuestion=" + nextQuestion + "]";
 	}
 
 }

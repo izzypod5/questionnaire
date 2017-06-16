@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +28,7 @@ public class Answer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "answer_id")
-	private int answerId;
+	private long answerId;
 	@Column(name = "description")
 	private String description;
 	@Temporal(TemporalType.DATE)
@@ -36,18 +37,18 @@ public class Answer {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dateUpdated", unique = true, nullable = false, length = 10)
 	private Date dateUpdated;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "qqId", cascade = CascadeType.ALL)
-	@JoinColumn(name = "frn_qq_id")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "questionId")
 	private QuestionnaireQuestion question;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
-	@JoinColumn(name = "frn_user_id")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "userId")
 	private User user;
 
-	public int getAnswerId() {
+	public long getAnswerId() {
 		return answerId;
 	}
 
-	public void setAnswerId(int answerId) {
+	public void setAnswerId(long answerId) {
 		this.answerId = answerId;
 	}
 
@@ -95,7 +96,7 @@ public class Answer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + answerId;
+		result = prime * result + (int) (answerId ^ (answerId >>> 32));
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + ((dateUpdated == null) ? 0 : dateUpdated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());

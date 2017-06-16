@@ -1,6 +1,7 @@
 package gold.student.questionnaire.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,24 +31,34 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "question_id")
-	private int questionID;
+	private long questionId;
 	@Column(name = "description")
 	private String description;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "typeId", cascade = CascadeType.ALL)
-	@JoinColumn(name = "frn_type_id")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "typeId")
 	private QuestionType type;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dateCreated", unique = true, nullable = false, length = 10)
 	private Date dateCreated;
 	@Column(name = "required")
 	private boolean required;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
+	private Set<QuestionnaireQuestion> questionnaireQuestions;
 
-	public int getQuestionID() {
-		return questionID;
+	public Set<QuestionnaireQuestion> getQuestionnaireQuestions() {
+		return questionnaireQuestions;
 	}
 
-	public void setQuestionID(int questionID) {
-		this.questionID = questionID;
+	public void setQuestionnaireQuestions(Set<QuestionnaireQuestion> questionnaireQuestions) {
+		this.questionnaireQuestions = questionnaireQuestions;
+	}
+
+	public long getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(long questionId) {
+		this.questionId = questionId;
 	}
 
 	public String getDescription() {
@@ -85,7 +99,8 @@ public class Question {
 		int result = 1;
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + questionID;
+		result = prime * result + (int) (questionId ^ (questionId >>> 32));
+		result = prime * result + ((questionnaireQuestions == null) ? 0 : questionnaireQuestions.hashCode());
 		result = prime * result + (required ? 1231 : 1237);
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
@@ -110,19 +125,28 @@ public class Question {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (questionID != other.questionID)
+		if (questionId != other.questionId)
+			return false;
+		if (questionnaireQuestions == null) {
+			if (other.questionnaireQuestions != null)
+				return false;
+		} else if (!questionnaireQuestions.equals(other.questionnaireQuestions))
 			return false;
 		if (required != other.required)
 			return false;
-		if (type != other.type)
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Question [questionID=" + questionID + ", description=" + description + ", type=" + type
-				+ ", dateCreated=" + dateCreated + ", required=" + required + "]";
+		return "Question [questionId=" + questionId + ", description=" + description + ", type=" + type
+				+ ", dateCreated=" + dateCreated + ", required=" + required + ", questionnaireQuestions="
+				+ questionnaireQuestions + "]";
 	}
 
 }

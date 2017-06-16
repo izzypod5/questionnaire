@@ -21,17 +21,17 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private int userId;
+	private long userId;
 	@Column(name = "name")
 	private String name;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Answer answer;
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -57,7 +57,7 @@ public class User {
 		int result = 1;
 		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + userId;
+		result = prime * result + (int) (userId ^ (userId >>> 32));
 		return result;
 	}
 

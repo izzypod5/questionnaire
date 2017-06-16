@@ -21,19 +21,19 @@ public class Choice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "choice_id")
-	private int choiceId;
-	@Column(name = "name")
+	private long choiceId;
+	@Column(name = "description")
 	private String description;
-	@Column(name = "name")
+	@Column(name = "value")
 	private String value;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "choice", cascade = CascadeType.ALL)
 	private QuestionnaireQuestion question;
 
-	public int getChoiceId() {
+	public long getChoiceId() {
 		return choiceId;
 	}
 
-	public void setChoiceId(int choiceId) {
+	public void setChoiceId(long choiceId) {
 		this.choiceId = choiceId;
 	}
 
@@ -65,7 +65,7 @@ public class Choice {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + choiceId;
+		result = prime * result + (int) (choiceId ^ (choiceId >>> 32));
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());

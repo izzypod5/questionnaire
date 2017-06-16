@@ -24,31 +24,31 @@ public class QuestionnaireQuestion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "qq_id")
-	private int qqId;
+	private long qqId;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "questionnaire_id")
+	@JoinColumn(name = "questionnaireId")
 	private Questionnaire questionnaire;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "question_id")
+	@JoinColumn(name = "questionId")
 	private Question question;
 
 	@Column(name = "ordinal")
 	private int ordinal;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "choiceId", cascade = CascadeType.ALL)
-	@JoinColumn(name = "frn_choice_id")
-	private int choice_id;
-
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "choiceId")
+	private Choice choice;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "question", cascade = CascadeType.ALL)
 	private Answer answer;
 
-	public int getQqId() {
+	public long getQqId() {
 		return qqId;
 	}
 
-	public void setQqId(int qqId) {
+	public void setQqId(long qqId) {
 		this.qqId = qqId;
 	}
 
@@ -76,12 +76,12 @@ public class QuestionnaireQuestion {
 		this.ordinal = ordinal;
 	}
 
-	public int getChoice_id() {
-		return choice_id;
+	public Choice getChoice() {
+		return choice;
 	}
 
-	public void setChoice_id(int choice_id) {
-		this.choice_id = choice_id;
+	public void setChoice(Choice choice) {
+		this.choice = choice;
 	}
 
 	public Answer getAnswer() {
@@ -97,9 +97,9 @@ public class QuestionnaireQuestion {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
-		result = prime * result + choice_id;
+		result = prime * result + ((choice == null) ? 0 : choice.hashCode());
 		result = prime * result + ordinal;
-		result = prime * result + qqId;
+		result = prime * result + (int) (qqId ^ (qqId >>> 32));
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		result = prime * result + ((questionnaire == null) ? 0 : questionnaire.hashCode());
 		return result;
@@ -119,7 +119,10 @@ public class QuestionnaireQuestion {
 				return false;
 		} else if (!answer.equals(other.answer))
 			return false;
-		if (choice_id != other.choice_id)
+		if (choice == null) {
+			if (other.choice != null)
+				return false;
+		} else if (!choice.equals(other.choice))
 			return false;
 		if (ordinal != other.ordinal)
 			return false;
@@ -141,7 +144,7 @@ public class QuestionnaireQuestion {
 	@Override
 	public String toString() {
 		return "QuestionnaireQuestion [qqId=" + qqId + ", questionnaire=" + questionnaire + ", question=" + question
-				+ ", ordinal=" + ordinal + ", choice_id=" + choice_id + ", answer=" + answer + "]";
+				+ ", ordinal=" + ordinal + ", choice=" + choice + ", answer=" + answer + "]";
 	}
 
 }

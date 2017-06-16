@@ -21,19 +21,19 @@ public class QuestionType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private int typeId;
+	private long typeId;
 	@Column(name = "code")
 	private String code;
 	@Column(name = "description")
 	private String description;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="type", cascade = CascadeType.ALL)
 	private Question question;
 
-	public int getTypeId() {
+	public long getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(int typeId) {
+	public void setTypeId(long typeId) {
 		this.typeId = typeId;
 	}
 
@@ -68,7 +68,7 @@ public class QuestionType {
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
-		result = prime * result + typeId;
+		result = prime * result + (int) (typeId ^ (typeId >>> 32));
 		return result;
 	}
 
