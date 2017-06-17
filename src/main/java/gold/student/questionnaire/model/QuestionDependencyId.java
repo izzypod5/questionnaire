@@ -2,12 +2,8 @@ package gold.student.questionnaire.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Embeddable
 public class QuestionDependencyId implements Serializable {
@@ -15,11 +11,11 @@ public class QuestionDependencyId implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(name = "qq_id")
+	@Column(name = "qq_id", nullable = false)
 	private long questionId;
-	@Column(name = "answer")
+	@Column(name = "answer", nullable = false)
 	private String answer;
-	@Column(name = "next_qq_id")
+	@Column(name = "next_qq_id", nullable = false)
 	private long nextQuestionId;
 
 	public long getQuestionId() {

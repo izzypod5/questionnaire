@@ -21,8 +21,8 @@
 		<!-- Dialect is required to let Hibernate know the Database Type, MySQL, 
 			Oracle etc Hibernate 4 automatically figure out Dialect from Database Connection 
 			Metadata -->
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="hbm2ddl.auto">update</property><!-- create-drop -->
 
 		<!-- mapping file, we can use Bean annotations too -->
 		<mapping class="gold.student.questionnaire.model.Choice" />

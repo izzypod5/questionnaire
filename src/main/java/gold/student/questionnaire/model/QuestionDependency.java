@@ -5,25 +5,28 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Check;
 
 @Entity
 @Table(name = "QuestionDependency")
+@Check(constraints = "questionId <> nextQuestionId")
 public class QuestionDependency {
 
 	@EmbeddedId
 	private QuestionDependencyId id;
 
 	@MapsId("questionId")
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "qq_id")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "qq_id", nullable = false)
 	private QuestionnaireQuestion question;
 
 	@MapsId("nextQuestionId")
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "next_qq_id")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "next_qq_id", nullable = false)
 	private QuestionnaireQuestion nextQuestion;
 
 	public QuestionDependencyId getId() {

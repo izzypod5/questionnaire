@@ -1,6 +1,6 @@
 package gold.student.questionnaire.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "Answer")
@@ -27,21 +27,21 @@ import javax.persistence.TemporalType;
 public class Answer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "answer_id")
+	@Column(name = "answer_id", unique = true)
 	private long answerId;
-	@Column(name = "description")
+	@Column(name = "description", nullable = false)
 	private String description;
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dateCreated", unique = true, nullable = false, length = 10)
-	private Date dateCreated;
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dateUpdated", unique = true, nullable = false, length = 10)
-	private Date dateUpdated;
+	@CreationTimestamp
+	@Column(name = "date_created", updatable = false)
+	private LocalDateTime dateCreated;
+	@UpdateTimestamp
+	@Column(name = "date_updated")
+	private LocalDateTime dateUpdated;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "questionId")
+	@JoinColumn(name = "question_id", nullable = false)
 	private QuestionnaireQuestion question;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
 	public long getAnswerId() {
@@ -60,19 +60,19 @@ public class Answer {
 		this.description = description;
 	}
 
-	public Date getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(Date dateCreated) {
+	public void setDateCreated(LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
-	public Date getDateUpdated() {
+	public LocalDateTime getDateUpdated() {
 		return dateUpdated;
 	}
 
-	public void setDateUpdated(Date dateUpdated) {
+	public void setDateUpdated(LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 

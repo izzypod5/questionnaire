@@ -1,20 +1,16 @@
 package gold.student.questionnaire.model;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "Questionnaire")
@@ -33,20 +29,12 @@ public class Questionnaire {
 	private String name;
 	@Column(name = "description")
 	private String description;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "questionnaire")
-	private Set<QuestionnaireQuestion> questionnaireQuestions;
-
-	public Set<QuestionnaireQuestion> getQuestionnaireQuestions() {
-		return questionnaireQuestions;
-	}
-
-	public void setQuestionnaireQuestions(Set<QuestionnaireQuestion> questionnaireQuestions) {
-		this.questionnaireQuestions = questionnaireQuestions;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dateCreated", unique = true, nullable = false, length = 10)
-	private Date dateCreated;
+	@CreationTimestamp
+	@Column(name = "date_created", updatable = false)
+	private LocalDateTime dateCreated;
+	@UpdateTimestamp
+	@Column(name = "date_updated")
+	private LocalDateTime dateUpdated;
 
 	public long getQuestionnaireId() {
 		return questionnaireId;
@@ -72,12 +60,20 @@ public class Questionnaire {
 		this.description = description;
 	}
 
-	public Date getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(Date dateCreated) {
+	public void setDateCreated(LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+
+	public LocalDateTime getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(LocalDateTime dateUpdated) {
+		this.dateUpdated = dateUpdated;
 	}
 
 	@Override
@@ -85,10 +81,10 @@ public class Questionnaire {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
+		result = prime * result + ((dateUpdated == null) ? 0 : dateUpdated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + (int) (questionnaireId ^ (questionnaireId >>> 32));
-		result = prime * result + ((questionnaireQuestions == null) ? 0 : questionnaireQuestions.hashCode());
 		return result;
 	}
 
@@ -106,6 +102,11 @@ public class Questionnaire {
 				return false;
 		} else if (!dateCreated.equals(other.dateCreated))
 			return false;
+		if (dateUpdated == null) {
+			if (other.dateUpdated != null)
+				return false;
+		} else if (!dateUpdated.equals(other.dateUpdated))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -118,18 +119,13 @@ public class Questionnaire {
 			return false;
 		if (questionnaireId != other.questionnaireId)
 			return false;
-		if (questionnaireQuestions == null) {
-			if (other.questionnaireQuestions != null)
-				return false;
-		} else if (!questionnaireQuestions.equals(other.questionnaireQuestions))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Questionnaire [questionnaireId=" + questionnaireId + ", name=" + name + ", description=" + description
-				+ ", questionnaireQuestions=" + questionnaireQuestions + ", dateCreated=" + dateCreated + "]";
+				+ ", dateCreated=" + dateCreated + ", dateUpdated=" + dateUpdated + "]";
 	}
 
 }

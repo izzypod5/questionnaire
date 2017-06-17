@@ -1,14 +1,16 @@
 package gold.student.questionnaire.model;
 
-import javax.persistence.CascadeType;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "Choice")
@@ -20,14 +22,18 @@ import javax.persistence.Table;
 public class Choice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "choice_id")
+	@Column(name = "choice_id", unique = true)
 	private long choiceId;
-	@Column(name = "description")
+	@Column(name = "description", nullable = false)
 	private String description;
-	@Column(name = "value")
+	@Column(name = "value", nullable = false)
 	private String value;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "choice", cascade = CascadeType.ALL)
-	private QuestionnaireQuestion question;
+	@CreationTimestamp
+	@Column(name = "date_created", updatable=false)
+	private LocalDateTime dateCreated;
+	@UpdateTimestamp
+	@Column(name = "date_updated")
+	private LocalDateTime dateUpdated;
 
 	public long getChoiceId() {
 		return choiceId;
@@ -53,21 +59,12 @@ public class Choice {
 		this.value = value;
 	}
 
-	public QuestionnaireQuestion getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(QuestionnaireQuestion question) {
-		this.question = question;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (choiceId ^ (choiceId >>> 32));
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -88,11 +85,6 @@ public class Choice {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (question == null) {
-			if (other.question != null)
-				return false;
-		} else if (!question.equals(other.question))
-			return false;
 		if (value == null) {
 			if (other.value != null)
 				return false;
@@ -103,8 +95,7 @@ public class Choice {
 
 	@Override
 	public String toString() {
-		return "Choice [choiceId=" + choiceId + ", description=" + description + ", value=" + value + ", question="
-				+ question + "]";
+		return "Choice [choiceId=" + choiceId + ", description=" + description + ", value=" + value + "]";
 	}
 
 }

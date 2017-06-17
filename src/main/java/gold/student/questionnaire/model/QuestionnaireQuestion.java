@@ -27,22 +27,19 @@ public class QuestionnaireQuestion {
 	private long qqId;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "questionnaireId")
+	@JoinColumn(name = "questionnaire_id")
 	private Questionnaire questionnaire;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "questionId")
+	@JoinColumn(name = "question_id")
 	private Question question;
 
 	@Column(name = "ordinal")
 	private int ordinal;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "choiceId")
+	@JoinColumn(name = "choice_id")
 	private Choice choice;
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "question", cascade = CascadeType.ALL)
-	private Answer answer;
 
 	public long getQqId() {
 		return qqId;
@@ -84,19 +81,10 @@ public class QuestionnaireQuestion {
 		this.choice = choice;
 	}
 
-	public Answer getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(Answer answer) {
-		this.answer = answer;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
 		result = prime * result + ((choice == null) ? 0 : choice.hashCode());
 		result = prime * result + ordinal;
 		result = prime * result + (int) (qqId ^ (qqId >>> 32));
@@ -114,11 +102,6 @@ public class QuestionnaireQuestion {
 		if (getClass() != obj.getClass())
 			return false;
 		QuestionnaireQuestion other = (QuestionnaireQuestion) obj;
-		if (answer == null) {
-			if (other.answer != null)
-				return false;
-		} else if (!answer.equals(other.answer))
-			return false;
 		if (choice == null) {
 			if (other.choice != null)
 				return false;
@@ -144,7 +127,7 @@ public class QuestionnaireQuestion {
 	@Override
 	public String toString() {
 		return "QuestionnaireQuestion [qqId=" + qqId + ", questionnaire=" + questionnaire + ", question=" + question
-				+ ", ordinal=" + ordinal + ", choice=" + choice + ", answer=" + answer + "]";
+				+ ", ordinal=" + ordinal + ", choice=" + choice + "]";
 	}
 
 }

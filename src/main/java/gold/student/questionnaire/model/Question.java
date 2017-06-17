@@ -1,7 +1,6 @@
 package gold.student.questionnaire.model;
 
-import java.util.Date;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,13 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "Question")
@@ -30,28 +27,21 @@ import javax.persistence.TemporalType;
 public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "question_id")
+	@Column(name = "question_id", unique = true)
 	private long questionId;
-	@Column(name = "description")
+	@Column(name = "description", nullable = false)
 	private String description;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "typeId")
+	@JoinColumn(name = "type_id", nullable = false)
 	private QuestionType type;
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dateCreated", unique = true, nullable = false, length = 10)
-	private Date dateCreated;
-	@Column(name = "required")
+	@CreationTimestamp
+	@Column(name = "date_created", updatable = false)
+	private LocalDateTime dateCreated;
+	@UpdateTimestamp
+	@Column(name = "date_updated")
+	private LocalDateTime dateUpdated;
+	@Column(name = "required", nullable = false)
 	private boolean required;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
-	private Set<QuestionnaireQuestion> questionnaireQuestions;
-
-	public Set<QuestionnaireQuestion> getQuestionnaireQuestions() {
-		return questionnaireQuestions;
-	}
-
-	public void setQuestionnaireQuestions(Set<QuestionnaireQuestion> questionnaireQuestions) {
-		this.questionnaireQuestions = questionnaireQuestions;
-	}
 
 	public long getQuestionId() {
 		return questionId;
@@ -77,12 +67,20 @@ public class Question {
 		this.type = type;
 	}
 
-	public Date getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(Date dateCreated) {
+	public void setDateCreated(LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+
+	public LocalDateTime getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(LocalDateTime dateUpdated) {
+		this.dateUpdated = dateUpdated;
 	}
 
 	public boolean isRequired() {
@@ -98,9 +96,9 @@ public class Question {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
+		result = prime * result + ((dateUpdated == null) ? 0 : dateUpdated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + (int) (questionId ^ (questionId >>> 32));
-		result = prime * result + ((questionnaireQuestions == null) ? 0 : questionnaireQuestions.hashCode());
 		result = prime * result + (required ? 1231 : 1237);
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
@@ -120,17 +118,17 @@ public class Question {
 				return false;
 		} else if (!dateCreated.equals(other.dateCreated))
 			return false;
+		if (dateUpdated == null) {
+			if (other.dateUpdated != null)
+				return false;
+		} else if (!dateUpdated.equals(other.dateUpdated))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
 		if (questionId != other.questionId)
-			return false;
-		if (questionnaireQuestions == null) {
-			if (other.questionnaireQuestions != null)
-				return false;
-		} else if (!questionnaireQuestions.equals(other.questionnaireQuestions))
 			return false;
 		if (required != other.required)
 			return false;
@@ -145,8 +143,7 @@ public class Question {
 	@Override
 	public String toString() {
 		return "Question [questionId=" + questionId + ", description=" + description + ", type=" + type
-				+ ", dateCreated=" + dateCreated + ", required=" + required + ", questionnaireQuestions="
-				+ questionnaireQuestions + "]";
+				+ ", dateCreated=" + dateCreated + ", dateUpdated=" + dateUpdated + ", required=" + required + "]";
 	}
 
 }
