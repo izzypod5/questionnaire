@@ -1,4 +1,4 @@
-package gold.student.main.dao;
+package gold.student.dao;
 
 import java.util.List;
 
@@ -8,14 +8,13 @@ public interface QuestionnaireDAO {
 
 	List<Questionnaire> getQuestionnaires();
 
-	List<Questionnaire> getQuestionnaireByName();
+	void insertQuestionnaire(Questionnaire questionnaire);
+/*	List<Questionnaire> getQuestionnaireByName();
 
 	Questionnaire getQuestionnaireByID();
 
-	void insertQuestionnaire(Questionnaire questionnaire);
-
 	void saveQuestionnaire(Questionnaire questionnaire);
 
-	void deleteQuestionnaire(Questionnaire questionnaire);
+	void deleteQuestionnaire(Questionnaire questionnaire);*/
 
 }

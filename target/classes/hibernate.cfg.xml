@@ -29,7 +29,6 @@
 		<mapping class="gold.student.questionnaire.model.Questionnaire" />
 		<mapping class="gold.student.questionnaire.model.QuestionType" />
 		<mapping class="gold.student.questionnaire.model.Question" />
-		<mapping class="gold.student.questionnaire.model.Choice" />
 		<mapping class="gold.student.questionnaire.model.QuestionnaireQuestion" />
 		<mapping class="gold.student.questionnaire.model.User" />
 		<mapping class="gold.student.questionnaire.model.Answer" />

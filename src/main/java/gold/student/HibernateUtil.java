@@ -1,4 +1,4 @@
-package gold.student.main;
+package gold.student;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

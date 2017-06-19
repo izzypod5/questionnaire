@@ -1,7 +1,5 @@
-package gold.student.main.dao;
+package gold.student.dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 import gold.student.questionnaire.model.Question;

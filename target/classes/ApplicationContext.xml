@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd  
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	<context:component-scan base-package="gold.student" />
+	<context:property-placeholder location="classpath:database.properties" />
+
+	<context:annotation-config />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${database.driver}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.password}" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="packagesToScan" value="gold.student.questionnaire.model" />
+		<!-- <property name="annotatedClasses"> <list> <value>gold.student.questionnaire.model.Choice</value> 
+			<value>gold.student.questionnaire.model.Questionnaire</value> <value>gold.student.questionnaire.model.QuestionType</value> 
+			<value>gold.student.questionnaire.model.Question</value> <value>gold.student.questionnaire.model.QuestionnaireQuestion 
+			</value> <value>gold.student.questionnaire.model.User</value> <value>gold.student.questionnaire.model.Answer</value> 
+			<value>gold.student.questionnaire.model.QuestionDependencyId</value> <value>gold.student.questionnaire.model.QuestionDependency</value> 
+			</list> </property> -->
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven />
+	
+	<bean id="persistenceExceptionTranslationPostProcessor"
+    class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+
+	<!-- <bean id="questionnaireDAO" class="gold.student.dao.QuestionnaireDAOImpl"></bean> 
+		<bean id="questionnaireService" class="gold.student.service.QuestionnaireServiceImpl"></bean> -->
+
+</beans>

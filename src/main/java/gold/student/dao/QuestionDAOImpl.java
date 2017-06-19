@@ -1,7 +1,9 @@
-package gold.student.main.dao;
+package gold.student.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import gold.student.questionnaire.model.Question;
 
@@ -26,6 +28,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 	}
 
 	@Override
+	//@Transactional
 	public Question getQuestionByID() {
 		// TODO Auto-generated method stub
 		return null;
