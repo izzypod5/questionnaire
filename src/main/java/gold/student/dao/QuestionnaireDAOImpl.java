@@ -5,12 +5,12 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import gold.student.questionnaire.model.Questionnaire;
 
@@ -21,6 +21,7 @@ public class QuestionnaireDAOImpl implements QuestionnaireDAO {
 	private SessionFactory sessionFactory;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Questionnaire> getQuestionnaires() {
 		Session session = sessionFactory.openSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -35,8 +36,10 @@ public class QuestionnaireDAOImpl implements QuestionnaireDAO {
 	@Override
 	@Transactional
 	public void insertQuestionnaire(Questionnaire questionnaire) {
-		// TODO Auto-generated method stub
-
+		Session session = sessionFactory.openSession();
+		session.save(questionnaire);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	/*

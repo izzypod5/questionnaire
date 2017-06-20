@@ -1,7 +1,6 @@
 gold\student\questionnaire\model\Choice.class
 gold\student\questionnaire\enums\QuestionFormat.class
 gold\student\questionnaire\model\QuestionnaireQuestion.class
-gold\student\controller\HibernateUtil.class
 gold\student\dao\QuestionDAOImpl.class
 gold\student\dao\QuestionnaireDAOImpl.class
 gold\student\service\QuestionnaireService.class
@@ -10,6 +9,7 @@ gold\student\questionnaire\model\Question.class
 gold\student\controller\QuestionnaireController.class
 gold\student\questionnaire\model\QuestionDependency.class
 gold\student\Application.class
+gold\student\HibernateUtil.class
 gold\student\questionnaire\model\QuestionDependencyId.class
 gold\student\questionnaire\model\Answer.class
 gold\student\questionnaire\model\User.class
@@ -17,3 +17,4 @@ gold\student\questionnaire\model\Questionnaire.class
 gold\student\questionnaire\model\QuestionType.class
 gold\student\dao\QuestionDAO.class
 gold\student\service\QuestionnaireServiceImpl.class
+gold\student\SimpleCORSFilter.class

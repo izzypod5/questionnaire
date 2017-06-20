@@ -5,11 +5,12 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import gold.student.questionnaire.model.Questionnaire;
@@ -22,8 +23,9 @@ public class QuestionnaireController {
 	QuestionnaireService questionnaireService;
 	static final Logger logger = LogManager.getLogger(RestController.class);
 
+	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(method = RequestMethod.GET, value = "/questionnaires")
-	public List<Questionnaire> getQuestionnaires(@RequestParam(value = "tag", required = false) String tag,
+	public @ResponseBody List<Questionnaire> getQuestionnaires(@RequestParam(value = "tag", required = false) String tag,
 			@RequestParam(value = "date", required = false) LocalDate date,
 			@RequestParam(value = "start", required = false, defaultValue = "0") int start,
 			@RequestParam(value = "end", required = false, defaultValue = "10") int end) {

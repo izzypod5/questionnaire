@@ -1,8 +1,10 @@
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\Choice.java
+C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\HibernateUtil.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\dao\QuestionnaireDAOImpl.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\enums\QuestionFormat.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\Question.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\Questionnaire.java
+C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\SimpleCORSFilter.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\controller\QuestionnaireController.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\Application.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\QuestionDependency.java
@@ -15,5 +17,4 @@ C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\dao\QuestionDAO.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\QuestionnaireQuestion.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\dao\QuestionDAOImpl.java
-C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\controller\HibernateUtil.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\User.java
