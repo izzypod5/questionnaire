@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Questionnaire")
 /*
@@ -31,10 +33,19 @@ public class Questionnaire {
 	private String description;
 	@CreationTimestamp
 	@Column(name = "date_created", updatable = false)
+	@JsonIgnore
 	private LocalDateTime dateCreated;
 	@UpdateTimestamp
 	@Column(name = "date_updated")
+	@JsonIgnore
 	private LocalDateTime dateUpdated;
+
+	public Questionnaire(){}
+	
+	public Questionnaire(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
 
 	public long getQuestionnaireId() {
 		return questionnaireId;

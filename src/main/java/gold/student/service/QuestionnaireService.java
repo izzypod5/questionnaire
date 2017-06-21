@@ -7,8 +7,8 @@ import gold.student.questionnaire.model.Questionnaire;
 public interface QuestionnaireService {
 
 	List<Questionnaire> getQuestionnaires();
-	
-	 void insertQuestionnaire(Questionnaire questionnaire);
+
+	void insertQuestionnaire(Questionnaire questionnaire);
 
 	/*
 	 * List<Questionnaire> getQuestionnaireByName();

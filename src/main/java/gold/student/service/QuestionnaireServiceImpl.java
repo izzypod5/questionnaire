@@ -22,7 +22,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
 	@Override
 	public void insertQuestionnaire(Questionnaire questionnaire) {
-		
+		questionnaireDAO.insertQuestionnaire(questionnaire);
 	}
 
 	/*

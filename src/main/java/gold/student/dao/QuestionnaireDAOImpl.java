@@ -38,7 +38,7 @@ public class QuestionnaireDAOImpl implements QuestionnaireDAO {
 	public void insertQuestionnaire(Questionnaire questionnaire) {
 		Session session = sessionFactory.openSession();
 		session.save(questionnaire);
-		session.getTransaction().commit();
+		//session.getTransaction().commit();
 		session.close();
 	}
 
