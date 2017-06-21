@@ -36,10 +36,27 @@ public class QuestionnaireDAOImpl implements QuestionnaireDAO {
 	@Override
 	@Transactional
 	public void insertQuestionnaire(Questionnaire questionnaire) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.save(questionnaire);
 		//session.getTransaction().commit();
-		session.close();
+		//session.close();
+	}
+
+	@Override
+	@Transactional
+	public void deleteQuestionnaire(long questionnaireId) {
+		Session session = sessionFactory.getCurrentSession();
+		Questionnaire questionnaire = session.load(Questionnaire.class, questionnaireId);
+	    if (questionnaire != null) {
+	        session.delete(questionnaire);
+	    }
+	}
+
+	@Override
+	@Transactional
+	public void updateQuestionnaire(Questionnaire questionnaire) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(questionnaire);
 	}
 
 	/*

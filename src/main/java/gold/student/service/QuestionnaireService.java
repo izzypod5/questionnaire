@@ -9,6 +9,10 @@ public interface QuestionnaireService {
 	List<Questionnaire> getQuestionnaires();
 
 	void insertQuestionnaire(Questionnaire questionnaire);
+	
+	void deleteQuestionnaire(long questionnaireId);
+	
+	void updateQuestionnaire(Questionnaire questionnaire);
 
 	/*
 	 * List<Questionnaire> getQuestionnaireByName();
@@ -17,9 +21,9 @@ public interface QuestionnaireService {
 	 * 
 	 *
 	 * 
-	 * void saveQuestionnaire(Questionnaire questionnaire);
 	 * 
-	 * void deleteQuestionnaire(Questionnaire questionnaire);
+	 * 
+	 * 
 	 */
 
 }

@@ -6,11 +6,12 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ public class QuestionnaireController {
 	static final Logger logger = LogManager.getLogger(RestController.class);
 
 	@CrossOrigin(origins = "http://localhost:8080")
-	@RequestMapping(method = RequestMethod.GET, value = "/questionnaires")
+	@RequestMapping(method = RequestMethod.GET, value = "/questionnaires", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Questionnaire>> getQuestionnaires(
 			@RequestParam(value = "tag", required = false) String tag,
 			@RequestParam(value = "date", required = false) LocalDate date,
@@ -36,8 +37,12 @@ public class QuestionnaireController {
 		List<Questionnaire> questionnaireList = null;
 		try {
 			questionnaireList = questionnaireService.getQuestionnaires();
+			if (questionnaireList.isEmpty()) {
+				logger.debug("Questionnaires do not exist");
+				return new ResponseEntity<List<Questionnaire>>(HttpStatus.NO_CONTENT);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		return ResponseEntity.ok(questionnaireList);
 	}
@@ -47,5 +52,26 @@ public class QuestionnaireController {
 	public ResponseEntity<Questionnaire> createQuestionnaire(Questionnaire questionnaire) {
 		questionnaireService.insertQuestionnaire(questionnaire);
 		return new ResponseEntity<>(questionnaire, HttpStatus.CREATED);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8080")
+	@RequestMapping(method = RequestMethod.PUT, value = "/questionnaire", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public ResponseEntity<Void> updateQuestionnaire(Questionnaire questionnaire) {
+		logger.info("Questionnaire: " + questionnaire);
+		questionnaireService.updateQuestionnaire(questionnaire);
+		return ResponseEntity.ok().build();
+	}	
+
+	@CrossOrigin(origins = "http://localhost:8080")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/questionnaire/{id}")
+	public ResponseEntity<Void> deleteQuestionnaire(@PathVariable("id") long id) {
+		logger.info("ID received is: " + id);
+		try {
+			questionnaireService.deleteQuestionnaire(id);
+			return ResponseEntity.noContent().build();
+		} catch (ResourceNotFoundException e) {
+			logger.info(e.getMessage());
+			return ResponseEntity.notFound().build();
+		}
 	}
 }

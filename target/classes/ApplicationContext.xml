@@ -20,7 +20,7 @@
 	</bean>
 
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="packagesToScan" value="gold.student.questionnaire.model" />
 		<!-- <property name="annotatedClasses"> <list> <value>gold.student.questionnaire.model.Choice</value> 
 			<value>gold.student.questionnaire.model.Questionnaire</value> <value>gold.student.questionnaire.model.QuestionType</value> 
@@ -52,7 +52,7 @@
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<tx:annotation-driven />
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />

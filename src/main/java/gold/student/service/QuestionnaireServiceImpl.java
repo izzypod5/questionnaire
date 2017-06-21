@@ -2,8 +2,6 @@ package gold.student.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +21,16 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 	@Override
 	public void insertQuestionnaire(Questionnaire questionnaire) {
 		questionnaireDAO.insertQuestionnaire(questionnaire);
+	}
+
+	@Override
+	public void deleteQuestionnaire(long questionnaireId) {
+		questionnaireDAO.deleteQuestionnaire(questionnaireId);
+	}
+
+	@Override
+	public void updateQuestionnaire(Questionnaire questionnaire) {
+		questionnaireDAO.updateQuestionnaire(questionnaire);		
 	}
 
 	/*
