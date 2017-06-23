@@ -15,6 +15,9 @@ C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\service\Questi
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\service\QuestionnaireService.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\QuestionDependencyId.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\dao\QuestionDAO.java
+C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\ResponseWrapper.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\QuestionnaireQuestion.java
+C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\dao\GenericRepository.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\dao\QuestionDAOImpl.java
+C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\PaginatedList.java
 C:\Users\adaml\workspace\questionnaire\src\main\java\gold\student\questionnaire\model\User.java

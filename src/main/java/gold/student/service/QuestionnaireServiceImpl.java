@@ -3,6 +3,7 @@ package gold.student.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import gold.student.dao.QuestionnaireDAO;
@@ -11,52 +12,33 @@ import gold.student.questionnaire.model.Questionnaire;
 @Service
 public class QuestionnaireServiceImpl implements QuestionnaireService {
 	@Autowired
-    QuestionnaireDAO questionnaireDAO;
+	QuestionnaireDAO questionnaireDAO;
 
 	@Override
-	public List<Questionnaire> getQuestionnaires() {
-		  return questionnaireDAO.getQuestionnaires();
+	public Long getRowCount() {
+		return questionnaireDAO.getRowCount();
 	}
 
 	@Override
-	public void insertQuestionnaire(Questionnaire questionnaire) {
-		questionnaireDAO.insertQuestionnaire(questionnaire);
+	public List<Questionnaire> findAll(Pageable pageable) {
+		return questionnaireDAO.findAll(pageable);
 	}
 
 	@Override
-	public void deleteQuestionnaire(long questionnaireId) {
-		questionnaireDAO.deleteQuestionnaire(questionnaireId);
-	}
-
-	@Override
-	public void updateQuestionnaire(Questionnaire questionnaire) {
-		questionnaireDAO.updateQuestionnaire(questionnaire);		
-	}
-
-	/*
-	 * TODO:
-	 * @Override public List<Questionnaire> getQuestionnaireByName() { // TODO
-	 * Auto-generated method stub return null; }
-	 * 
-	 * @Override public Questionnaire getQuestionnaireByID() { // TODO
-	 * Auto-generated method stub return null; }
-	 * 
-	 * @Override public void insertQuestionnaire(Questionnaire questionnaire) {
-	 * // TODO Auto-generated method stub
-	 * 
-	 * }
-	 */
-
-/*	@Override
-	public void saveQuestionnaire(Questionnaire questionnaire) {
-		// TODO Auto-generated method stub
+	public void insert(Questionnaire entity) {
+		questionnaireDAO.insert(entity);
 
 	}
 
 	@Override
-	public void deleteQuestionnaire(Questionnaire questionnaire) {
-		// TODO Auto-generated method stub
+	public void delete(long id) {
+		questionnaireDAO.delete(id);
 
-	}*/
+	}
+
+	@Override
+	public void update(Questionnaire entity) {
+		questionnaireDAO.update(entity);
+	}
 
 }

@@ -1,29 +1,9 @@
 package gold.student.service;
 
-import java.util.List;
-
+import gold.student.dao.GenericRepository;
 import gold.student.questionnaire.model.Questionnaire;
 
-public interface QuestionnaireService {
-
-	List<Questionnaire> getQuestionnaires();
-
-	void insertQuestionnaire(Questionnaire questionnaire);
-	
-	void deleteQuestionnaire(long questionnaireId);
-	
-	void updateQuestionnaire(Questionnaire questionnaire);
-
-	/*
-	 * List<Questionnaire> getQuestionnaireByName();
-	 * 
-	 * Questionnaire getQuestionnaireByID();
-	 * 
-	 *
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
+//may use to extend the generic methods if needed
+public interface QuestionnaireService extends GenericRepository<Questionnaire> {
 
 }
